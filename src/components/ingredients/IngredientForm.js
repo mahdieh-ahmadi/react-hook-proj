@@ -1,5 +1,5 @@
 import React from 'react'
-import './ingredients.css'
+import './ingredientForm.css'
 
 const IngredientForm = () => {
     return ( <form className="ingredientForm">

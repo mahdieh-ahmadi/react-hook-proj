@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {BrowserRouter} from 'react-router-dom'
 
-import Blog from './containers/Blog/Blog';
+import Ingredients from './components/ingredients/Ingredients'
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
       <div className="App">
-        <Blog />
+        <Ingredients/>
       </div>
       </BrowserRouter>
     );

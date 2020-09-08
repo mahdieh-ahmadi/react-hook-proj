@@ -57,11 +57,32 @@ const Ingredients = () => {
         deletItemHandler={key => deletItemHandler(key)}/>)
 
     const Filter = event => {
-        event.target.value === '' ? (
-            console.log('empty')
-        ):(
-            console.log(event.target.value)
-        )
+       if( event.target.value === '' ){ 
+            fetch('https://react-hook-initial.firebaseio.com/list-of-data.json',{
+                method:'GET',
+                headers : {'Content-type' :'application/json' }
+            }).then(response =>  response.json() )
+            .then(data => {
+                const dataList = []
+                for(let i in data){
+                    dataList.push({...data[i] , key : i})
+                }
+                setUserIngredients(dataList)
+            })
+       }else{
+            let url = `?orderBy="name"&equalTo="${event.target.value}"`;
+            fetch('https://react-hook-initial.firebaseio.com/list-of-data.json' + url ,{
+                method:'GET',
+                headers : {'Content-type' :'application/json' }
+            }).then(response =>  response.json() )
+            .then(data => {
+                const dataList = []
+                for(let i in data){
+                    dataList.push({...data[i] , key : i})
+                }
+                setUserIngredients(dataList)
+            })
+       }
        
     }
 

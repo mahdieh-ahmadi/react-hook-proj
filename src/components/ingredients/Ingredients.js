@@ -1,4 +1,4 @@
-import React,{useState , useEffect} from 'react'
+import React,{useState , useEffect , useCallback} from 'react'
 
 import IngredientForm from './IngredientForm'
 import Search from './Search'
@@ -56,40 +56,14 @@ const Ingredients = () => {
         key={i.key}
         deletItemHandler={key => deletItemHandler(key)}/>)
 
-    const Filter = event => {
-       if( event.target.value === '' ){ 
-            fetch('https://react-hook-initial.firebaseio.com/list-of-data.json',{
-                method:'GET',
-                headers : {'Content-type' :'application/json' }
-            }).then(response =>  response.json() )
-            .then(data => {
-                const dataList = []
-                for(let i in data){
-                    dataList.push({...data[i] , key : i})
-                }
-                setUserIngredients(dataList)
-            })
-       }else{
-            let url = `?orderBy="name"&equalTo="${event.target.value}"`;
-            fetch('https://react-hook-initial.firebaseio.com/list-of-data.json' + url ,{
-                method:'GET',
-                headers : {'Content-type' :'application/json' }
-            }).then(response =>  response.json() )
-            .then(data => {
-                const dataList = []
-                for(let i in data){
-                    dataList.push({...data[i] , key : i})
-                }
-                setUserIngredients(dataList)
-            })
-       }
-       
-    }
+    const Filter =useCallback(filteredIngredients => {
+        setUserIngredients(filteredIngredients)
+      }, []);
 
     return (<div className="main">
             <IngredientForm ingredientHandler={ ingredientHandler} />
             <span>
-                <Search filter={Filter}/>
+                <Search onLoadIngredients={Filter}/>
                 <ul className="list">
                    {items}
                 </ul>

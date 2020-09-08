@@ -42,3 +42,15 @@
 .btn:hover{
     box-shadow: 0 3px 6px #ccc;
 }
+
+.ingredientForm *:nth-child(5){
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.spinner{
+    border: none;
+    max-width: fit-content;
+}

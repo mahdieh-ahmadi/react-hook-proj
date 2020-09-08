@@ -1,10 +1,10 @@
 import React from 'react'
 import './search.css'
 
-const Search = () => {
+const Search = props => {
     return <form className="SearchForm">
         <label>Filter by Title</label>
-        <input type="text" />
+        <input type="text" onChange={event => props.filter(event)}/>
     </form>
 }
 
